@@ -1,0 +1,47 @@
+;Q10. Write a program to find out if a number is even or odd.  
+
+.DATA
+NUM DB ? ;USER WILL GIVE THE INPUT NUMBER
+
+
+.CODE
+START:
+    MOV AX, DATA
+    MOV DS, AX
+    XOR AX, AX
+    
+    
+    ;INPUT: READ AN INTEGER FROM THE USER
+    MOV AH, 01H ;NUMBER IS ASCII 
+    INT 21H 
+    ;CONVERT THE NUMBER INTO BINARY
+    
+    SUB AL, 30H
+    
+    ;CHECK IF THE NUMBER IS EVEN OR ODD
+    
+    MOV AH, 0H ;CEAR AH REGISTER
+    MOV BL, 2 ;SET BL TO 2
+    DIV BL ;DIVIDE AL WITH BL
+    
+    CMP AH, 0; CHECK THE REMAINDER
+    JNZ ODD ;JUMP IF THE REMAINDER IS NOT ZERO
+    
+    MOV AH, 02H ;DISPLAY THE RESULT
+    MOV DL, 'E'
+    INT 21H
+    JMP DONE
+    
+ODD:
+    MOV AH, 02H
+    MOV DL, 'O'
+    INT 21H
+    
+DONE:
+    MOV AH, 4CH
+    INT 21H
+
+
+
+
+END START

@@ -1,0 +1,59 @@
+;the following program contains 3 Macro definitions which are: clear the screen, display a message, and cursor
+
+CLEARSCREEN MACRO STRING;THIS MACRO CLEARS THE SCREEN
+    MOV AX, 0600H
+    MOV BH, 07
+    MOV CX, 0
+    MOV DX, 184FH
+    INT 10H
+ENDM
+
+DISP MACRO STRING;THIS MACRO DISPLAYS THE SCREEN
+    MOV AH, 09
+    MOV DX, OFFSET STRING 
+    INT 21H
+ENDM   
+    
+CURSOR MACRO ROW, COLUMN; CURSOR MACRO
+    MOV BH, 00
+    MOV AH, 02
+    MOV DH, ROW
+    MOV DL, COLUMN
+    INT 10H
+ENDM            
+    
+    
+    
+.DATA
+MESSAGE1 DB "MY NAME", "$"
+MESSAGE2 DB "IS BRENT", "$"
+MESSAGE3 DB "WHAT IS", "$"
+MESSAGE4 DB "YOUR NAME?", "$"
+
+
+.CODE
+START:
+    MOV AX, DATA
+    MOV DS, AX
+    CLEARSCREEN
+    CURSOR 2, 4
+    DISP ,MESSAGE1
+    CURSOR 3, 1
+    DISP MESSAGE2
+    CURSOR 6, 1
+    DISP MESSAGE3
+    CURSOR 8, 4
+    DISP MESSAGE4
+    
+    
+    MOV AH, 4CH
+    INT 21H
+
+
+
+
+
+
+
+
+END START

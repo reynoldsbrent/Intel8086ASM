@@ -1,0 +1,35 @@
+.DATA
+X DW 12h
+Y DW 07h
+NUMBER1 DW 129FH
+NUMBER2 DW 99H  
+RESULT DW ?
+RESULT1 DW ?
+RESULT2 DW ?
+
+.CODE
+
+START:
+    MOV AX, DATA
+    MOV DS, AX
+    XOR AX, AX
+    MOV AX, X
+    MOV BX, Y
+    MUL BX
+    MOV AX, RESULT 
+    
+    XOR AX, AX
+    
+    MOV AX, NUMBER1
+    MOV CX, NUMBER2
+    SUB AX, CX
+    MOV RESULT1, CX
+    XOR AX, AX
+    
+    MOV AX, RESULT
+    
+    DIV RESULT1
+    
+    INT 21H
+    
+END START

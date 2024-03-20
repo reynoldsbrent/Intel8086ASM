@@ -1,0 +1,51 @@
+;Q5. Write a program to find out a minimum of three numbers.
+
+.DATA
+VAR1 DB 12
+VAR2 DB 14
+VAR3 DB 11
+MIN DB ?
+
+
+
+.CODE  
+START:
+    MOV AX, DATA
+    MOV DS, AX
+    XOR AX, AX
+    MOV AL, VAR1
+    MOV BL, VAR2
+    MOV CL, VAR3
+    
+    ;ASSUME AX IS THE MINIMUM
+    MOV MIN, AL
+    ;RESULT WILL BE DISPLAYED AT DL
+    MOV DL, AL
+    
+    ;IF BL IS LESS THAN THE MINIMUM 
+    CMP BL, MIN
+    JL BL_IS_MIN
+    
+    ;IF CL IS LESS THAN MINIMUM
+    CMP CL, MIN
+    JL CL_IS_MIN
+    
+    ;TERMINATE THE PROGRAM
+    MOV AH, 4CH
+    INT 21H
+
+
+
+BL_IS_MIN:
+    ;MOV IT TO MIN AND DL AND EXIT
+    MOV MIN, BL
+    MOV DL, BL
+    INT 21H  
+    
+CL_IS_MIN:
+    ;MOV IT TO MIN AND DL AND EXIT
+    MOV MIN, CL
+    MOV DL, CL
+    INT 21H 
+
+END START
